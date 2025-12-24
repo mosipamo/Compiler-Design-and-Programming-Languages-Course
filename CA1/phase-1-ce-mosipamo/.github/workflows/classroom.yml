@@ -1,0 +1,231 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Comments
+      id: comments
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Comments
+        setup-command: ''
+        command: javac -cp utilities/antlr-4.13.1-complete.jar -d out $(find src gen
+          -name "*.java") && curl -sL -o tests/12-comments.cpy https://raw.githubusercontent.com/PLC-UT/spring04-phase-1-spring25-simplelang-phase1-template/refs/heads/main/tests/12-comments.cpy
+          && java -cp out:utilities/antlr-4.13.1-complete.jar SimpleLang tests/12-comments.cpy
+          | sort -t':' -k1.6n -k2
+        input: ''
+        expected-output: |-
+          Line 1: Stmt function main = 2
+          Line 3: Expr printf
+        comparison-method: contains
+        timeout: 10
+        max-score: 1
+    - name: If 2
+      id: if-2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: If 2
+        setup-command: ''
+        command: javac -cp utilities/antlr-4.13.1-complete.jar -d out $(find src gen
+          -name "*.java") && curl -sL -o tests/13-if2.cpy https://raw.githubusercontent.com/PLC-UT/spring04-phase-1-spring25-simplelang-phase1-template/refs/heads/main/tests/13-if2.cpy
+          && java -cp out:utilities/antlr-4.13.1-complete.jar SimpleLang tests/13-if2.cpy
+          | sort -t':' -k1.6n -k2
+        input: ''
+        expected-output: |-
+          Line 1: Stmt function main = 1
+          Line 2: Expr 1
+          Line 2: Stmt selection = 1
+          Line 4: Expr 0
+          Line 4: Stmt selection = 2
+        comparison-method: contains
+        timeout: 10
+        max-score: 1
+    - name: Int List
+      id: int-list
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Int List
+        setup-command: ''
+        command: javac -cp utilities/antlr-4.13.1-complete.jar -d out $(find src gen
+          -name "*.java") && curl -sL -o tests/14-intlist.cpy https://raw.githubusercontent.com/PLC-UT/spring04-phase-1-spring25-simplelang-phase1-template/refs/heads/main/tests/14-initlist.cpy
+          && java -cp out:utilities/antlr-4.13.1-complete.jar SimpleLang tests/14-intlist.cpy
+          | sort -t':' -k1.6n -k2
+        input: ''
+        expected-output: |-
+          Line 1: Stmt function main = 1
+          Line 2: Expr +
+        comparison-method: contains
+        timeout: 10
+        max-score: 1
+    - name: New Nested
+      id: new-nested
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: New Nested
+        setup-command: ''
+        command: ' javac -cp utilities/antlr-4.13.1-complete.jar -d out $(find src
+          gen -name "*.java") && curl -sL -o tests/15-newnested.cpy https://raw.githubusercontent.com/PLC-UT/spring04-phase-1-spring25-simplelang-phase1-template/refs/heads/main/tests/15-newnested.cpy
+          && java -cp out:utilities/antlr-4.13.1-complete.jar SimpleLang tests/15-newnested.cpy
+          | sort -t'':'' -k1.6n -k2'
+        input: ''
+        expected-output: |-
+          Line 1: Stmt function main = 3
+          Line 2: Expr 3
+          Line 3: Expr 1
+          Line 3: Stmt selection = 2
+          Line 4: Expr 1
+          Line 4: Stmt while = 1
+          Line 5: Expr 1
+          Line 5: Stmt selection = 1
+          Line 6: Expr printf
+          Line 7: Expr 1
+          Line 7: Stmt selection = 2
+          Line 8: Expr printf
+          Line 9: Expr printf
+          Line 10: Stmt selection = 1
+          Line 11: Expr printf
+          Line 12: Expr printf
+          Line 14: Expr a
+        comparison-method: contains
+        timeout: 10
+        max-score: 1
+    - name: Func 2
+      id: func-2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Func 2
+        setup-command: ''
+        command: javac -cp utilities/antlr-4.13.1-complete.jar -d out $(find src gen
+          -name "*.java") && curl -sL -o tests/16-func2.cpy https://raw.githubusercontent.com/PLC-UT/spring04-phase-1-spring25-simplelang-phase1-template/refs/heads/main/tests/16-func2.cpy
+          && java -cp out:utilities/antlr-4.13.1-complete.jar SimpleLang tests/16-func2.cpy
+          | sort -t':' -k1.6n -k2
+        input: ''
+        expected-output: |-
+          Line 1: Stmt function foo = 2
+          Line 2: Expr 5
+          Line 3: Expr =
+          Line 6: Stmt function main = 2
+          Line 7: Expr 10
+          Line 8: Expr *
+        comparison-method: contains
+        timeout: 10
+        max-score: 1
+    - name: Func 3
+      id: func-3
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Func 3
+        setup-command: ''
+        command: javac -cp utilities/antlr-4.13.1-complete.jar -d out $(find src gen
+          -name "*.java") && curl -sL -o tests/17-func3.cpy https://raw.githubusercontent.com/PLC-UT/spring04-phase-1-spring25-simplelang-phase1-template/refs/heads/main/tests/17-func3.cpy
+          && java -cp out:utilities/antlr-4.13.1-complete.jar SimpleLang tests/17-func3.cpy
+          | sort -t':' -k1.6n -k2
+        input: ''
+        expected-output: |-
+          Line 1: Stmt function check = 2
+          Line 2: Expr 1
+          Line 3: Expr flag
+          Line 3: Stmt selection = 1
+          Line 4: Expr 100
+          Line 8: Stmt function main = 2
+          Line 9: Expr 42
+          Line 10: Expr >
+          Line 10: Stmt selection = 1
+          Line 11: Expr =
+        comparison-method: contains
+        timeout: 10
+        max-score: 1
+    - name: Unary 2
+      id: unary-2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Unary 2
+        setup-command: ''
+        command: javac -cp utilities/antlr-4.13.1-complete.jar -d out $(find src gen
+          -name "*.java") && curl -sL -o tests/18-unary2.cpy https://raw.githubusercontent.com/PLC-UT/spring04-phase-1-spring25-simplelang-phase1-template/refs/heads/main/tests/18-unary2.cpy
+          && java -cp out:utilities/antlr-4.13.1-complete.jar SimpleLang tests/18-unary2.cpy
+          | sort -t':' -k1.6n -k2
+        input: ''
+        expected-output: |-
+          Line 1: Stmt function main = 6
+          Line 2: Expr 5
+          Line 3: Expr ++
+          Line 4: Expr +
+          Line 5: Expr -
+          Line 7: Expr >
+          Line 7: Stmt selection = 1
+          Line 8: Expr +=
+          Line 10: Expr 0
+        comparison-method: contains
+        timeout: 10
+        max-score: 1
+    - name: Sum
+      id: sum
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Sum
+        setup-command: ''
+        command: javac -cp utilities/antlr-4.13.1-complete.jar -d out $(find src gen
+          -name "*.java") && curl -sL -o tests/19-sum.cpy https://raw.githubusercontent.com/PLC-UT/spring04-phase-1-spring25-simplelang-phase1-template/refs/heads/main/tests/19-sum.cpy
+          && java -cp out:utilities/antlr-4.13.1-complete.jar SimpleLang tests/19-sum.cpy
+          | sort -t':' -k1.6n -k2
+        input: ''
+        expected-output: |-
+          Line 1: Stmt function main = 6
+          Line 2: Expr printf
+          Line 4: Expr 10
+          Line 5: Expr 20
+          Line 6: Expr +
+          Line 8: Expr >
+          Line 8: Stmt selection = 1
+          Line 9: Expr printf
+          Line 11: Expr 0
+        comparison-method: contains
+        timeout: 10
+        max-score: 1
+    - name: Counter
+      id: counter
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Counter
+        setup-command: ''
+        command: javac -cp utilities/antlr-4.13.1-complete.jar -d out $(find src gen
+          -name "*.java") && curl -sL -o tests/20-counter.cpy https://raw.githubusercontent.com/PLC-UT/spring04-phase-1-spring25-simplelang-phase1-template/refs/heads/main/tests/20-counter.cpy
+          && java -cp out:utilities/antlr-4.13.1-complete.jar SimpleLang tests/20-counter.cpy
+          | sort -t':' -k1.6n -k2
+        input: ''
+        expected-output: |-
+          Line 1: Stmt function main = 5
+          Line 2: Expr printf
+          Line 4: Expr 0
+          Line 5: Stmt for = 1
+          Line 6: Expr +=
+          Line 8: Expr printf
+          Line 10: Expr 0
+        comparison-method: contains
+        timeout: 10
+        max-score: 1
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        COMMENTS_RESULTS: "${{steps.comments.outputs.result}}"
+        IF-2_RESULTS: "${{steps.if-2.outputs.result}}"
+        INT-LIST_RESULTS: "${{steps.int-list.outputs.result}}"
+        NEW-NESTED_RESULTS: "${{steps.new-nested.outputs.result}}"
+        FUNC-2_RESULTS: "${{steps.func-2.outputs.result}}"
+        FUNC-3_RESULTS: "${{steps.func-3.outputs.result}}"
+        UNARY-2_RESULTS: "${{steps.unary-2.outputs.result}}"
+        SUM_RESULTS: "${{steps.sum.outputs.result}}"
+        COUNTER_RESULTS: "${{steps.counter.outputs.result}}"
+      with:
+        runners: comments,if-2,int-list,new-nested,func-2,func-3,unary-2,sum,counter
