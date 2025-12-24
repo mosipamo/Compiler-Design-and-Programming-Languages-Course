@@ -1,3 +1,3 @@
 # Compiler-Design-and-Programming-Languages
 
-The Homeworks of Compiler Design and Programming Languages Course
+The Homeworks and Computer Assignments of Compiler Design and Programming Languages Course
